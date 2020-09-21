@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <title>PressK</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color:#eeeeee;
+        }
+
+        #main {
+            margin: auto;
+            margin-top: 40px;
+            height: 480px;
+            width: 480px;
+            background-color: #6b9cc5;
+            position: relative;
+            border-radius: 5%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.23), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+
+        #coreBlock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 160px;
+            width: 160px;
+            margin-top: -80px;
+            margin-left: -80px;
+            background-color: null;
+            border-radius: 5%;
+        }
+
+        #topBlock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 160px;
+            width: 160px;
+            margin-top: -240px;
+            margin-left: -80px; 
+            background-color:rgba(255, 255, 255, 0.800);
+            border-radius: 5%;
+        }
+
+        #leftBlock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 160px;
+            width: 160px;
+            margin-top: -80px;
+            margin-left: -240px; 
+            background-color:rgba(255, 255, 255, 0.800);
+            border-radius: 5%;
+        }
+
+        #bottomBlock {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            height: 160px;
+            width: 160px;
+            margin-bottom: -240px;
+            margin-left: -80px; 
+            background-color:rgba(255, 255, 255, 0.800);
+            border-radius: 5%;  
+        }
+
+        
+        #rightBlock {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            height: 160px;
+            width: 160px;
+            margin-top: -80px;
+            margin-right: -240px; 
+            background-color:rgba(255, 255, 255, 0.800);
+            border-radius: 5%;
+        }
+
+        #adjust {
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            margin-left: -30px;
+        }
+
+
+    </style>
+</head>
+<body onclick>
+    <div id="main" onclick="stop()">
+        <div id="coreBlock"></div>
+        <div id="topBlock"></div>
+        <div id="leftBlock"></div>
+        <div id="rightBlock"></div>
+        <div id="bottomBlock"></div>
+        <button id="adjust">+</button>
+    </div>
+    <script> 
+        ~function(){
+            var mode = 1;
+            var t = "#";
+            var topMargin = "-240px";
+            var leftMargin = "-240px";
+            var bottomMargin = "-240px";
+            var rightMargin = "-240px";
+            var launchTime;
+            var index = 0;
+            var speed = 5;
+            var fps = 1;
+            var s = -240;
+            var b = document.getElementById("main").style;
+            var direction = ["topBlock", "leftBlock", "bottomBlock", "rightBlock"]; 
+            var select = "topBlock";
+            document.getElementById("coreBlock").onclick = launch;
+            document.getElementById("adjust").onclick = set;
+
+            function moveT() {
+                s += speed;  
+                topMargin = s + 'px'; 
+                document.getElementById(select).style.marginTop = topMargin;
+                // console.log(s);
+                t = setTimeout(moveT, fps);
+                (s >= 80) && stop();
+            }
+
+            function moveL() {
+                s += speed; 
+                leftMargin = s + 'px'; 
+                document.getElementById(select).style.marginLeft = leftMargin;
+                // console.log(s);
+                t = setTimeout(moveL, fps);
+                (s >= 80) && stop();
+            }
+
+            function moveB() {
+                s += speed;  
+                bottomMargin = s + 'px'; 
+                document.getElementById(select).style.marginBottom = bottomMargin;
+                // console.log(s);
+                t = setTimeout(moveB, fps);
+                (s >= 80) && stop();
+            }
+
+            function moveR() {
+                s += speed;  
+                rightMargin = s + 'px'; 
+                document.getElementById(select).style.marginRight = rightMargin;
+                // console.log(s);
+                t = setTimeout(moveR, fps);
+                (s >= 80) && stop();
+            }
+
+            function stop() {
+                if(t === "#")
+                    return null;
+                clearTimeout(t);
+                if(s >= 80 || s === 240)
+                    document.getElementById("coreBlock").style.backgroundColor = "#d35151";
+                else
+                    document.getElementById("coreBlock").style.backgroundColor = "lightgreen"; 
+                t = "@";
+            }
+
+            function set() {
+                // 开始前
+                if(t === "#") {
+                    mode = (mode % 3 === 0) ? 1 : ++mode;
+                    //console.log(mode);
+                    switch(mode) {
+                        case 1: speed = 4, b.backgroundColor = "#6b9cc5";
+                        break;
+                        case 2: speed = 5, b.backgroundColor = "#9ACB34";
+                        break;
+                        case 3: speed = 6, b.backgroundColor = "#04D0D9";
+                        break;
+                        default: alert("Error mode");
+                        break;
+                    }
+                }
+                // 结束后
+                else if(t === "@")
+                    reload();
+                // 游戏中事件禁止
+                else 
+                    return null;
+            }
+
+            function reload() {
+                let reset = "-240px"
+                s = -240;
+                switch(index) {
+                    case 0: document.getElementById(select).style.marginTop = reset;
+                    break;
+                    case 1: document.getElementById(select).style.marginLeft = reset;
+                    break;
+                    case 2: document.getElementById(select).style.marginBottom = reset;
+                    break;
+                    case 3: document.getElementById(select).style.marginRight = reset;
+                    break;
+                    default: alert("Error! please press F5");
+                    break;
+                }
+                switch(mode) {
+                    case 1: speed = 4, b.backgroundColor = "#6b9cc5";
+                    break;
+                    case 2: speed = 5, b.backgroundColor = "#9ACB34";
+                    break;
+                    case 3: speed = 6, b.backgroundColor = "#04D0D9";
+                    break;
+                    default: alert("Error mode");
+                    break;
+                }
+                document.getElementById("coreBlock").style.backgroundColor = null;
+                t = "#";
+            }
+
+            function launch() {
+                t = 0;
+                document.getElementById("main").style.backgroundColor = "#3c4146";
+                index = Math.floor(Math.random()*4);
+                select = direction[index];
+                //console.log(select);
+                launchTime = Math.floor(Math.random()*5) * 1000;
+                //console.log(speed);
+                switch(index) {
+                    case 0: setTimeout(moveT, launchTime);
+                    break;
+                    case 1: setTimeout(moveL, launchTime);
+                    break;
+                    case 2: setTimeout(moveB, launchTime);
+                    break;
+                    case 3: setTimeout(moveR, launchTime);
+                    break;
+                    default: alert("Error! please press F5");
+                }
+            }
+
+            document.onkeydown=function(event){
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                //console.log(e);
+                // t = "" 表示的是游戏刚刚开始
+                // t = "@" 表示游戏结束
+                //console.log(e);
+                if(e && e.keyCode==75 && t !== 0 && t !== "@"){ 
+                    stop();
+                }
+                if(e && e.keyCode==83 && t === "#"){
+                    launch();
+                }
+            }; 
+        }();
+    </script>
+</body>
+
+</html>
