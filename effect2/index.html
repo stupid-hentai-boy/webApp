@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover effect</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #16a085;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        #hover1 {
+            background: none;
+            width: 200px;
+            height: 60px;
+            border: 4px solid;
+            color: #34495e;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            font-size: 16px;
+            transition: .4s;
+        }
+        #hover1::before, #hover1::after {
+            position: absolute;
+            content: "";
+            width: 10px;
+            height: 4px;
+            background: #16a085;
+            transition: .4s linear;
+        }
+        #hover1::before {
+            bottom: -4px;
+            left: 10%;
+        }
+        #hover1::after {
+            top: -4px;
+            right: 10%;
+        }
+        #hover1:hover::before {
+            left: 80%;
+        }
+        #hover1:hover::after {
+            right: 80%;
+        }
+        #hover1:hover {
+            background: #77b4a8;
+        }
+        p {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            font-size: .5em;
+            color: #34495e;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <p>EFFECT2</p>
+    <button id="hover1">Hover effect</button>
+</body>
+</html>
