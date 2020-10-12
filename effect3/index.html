@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test1</title>
+    <style>
+        :root {
+            --offset: 1rem;
+        }
+        body {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* grid-template-rows: repeat(2, 1fr); */
+            height: 50%;
+            width: 50%;
+        }
+
+        li {
+            list-style: none;
+            position: relative;
+            background-color: rgba(243, 234, 234, 0.514);
+            /* border-radius: 5%; */
+        }
+
+        .grid li:hover ~ li:last-child:after,
+        .grid li:last-child:hover:after,
+        .grid li:hover ~ li:last-child:before,
+        .grid li:last-child:hover:before {
+            opacity: 1;
+            transition: 1s ease;
+        }
+        .grid li:last-child:after,   /* 指的是那个小的蓝色方块吗 */
+        .grid li:last-child:before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            
+            height: 100%;
+            /* clip-path: polygon(var(--offset) var(--offset), var(--offset) calc(100% - var(--offset)), calc(100% - var(--offset)) calc(100% - var(--offset)), calc(100% - var(--offset)) var(--offset)); */
+            opacity: 0;
+            top: 0;
+            transform: translate3d(-100%, -100%, 0);
+            pointer-events: none;  /* 防止点击事件的干扰*/
+            transition: opacity 1s, transform 1s 1s, background 1s;
+        }
+        .grid li:last-child:after {
+            mix-blend-mode: multiply;
+            background: #aaafc3;
+        }
+        .grid li:nth-child(1):hover ~ li:last-child:after {
+            background: #1A237E;
+        }
+        .grid li:nth-child(2):hover ~ li:last-child:after {
+            background: #b5a1b7;
+        }
+        .grid li:nth-child(3):hover ~ li:last-child:after {
+            background: #aaafc3;
+        }
+        .grid li:nth-child(4):hover ~ li:last-child:after {
+            background: #daa384;
+        }
+        .grid li:nth-child(5):hover ~ li:last-child:after {
+            background: #A5D6A7;
+        }
+        .grid li:nth-child(6):hover ~ li:last-child:after {
+            background: #6c4331;
+        }
+        .grid li:nth-child(7):hover ~ li:last-child:after {
+            background: #555;
+        }
+        .grid li:last-child:hover:after {
+            background: #a88504;
+        }
+
+
+        .grid li:nth-child(1):hover ~ li:last-child:after,
+        .grid li:nth-child(1):hover ~ li:last-child:before {
+            transform: translate3d(-200%, -200%, 0);
+        }
+        .grid li:nth-child(2):hover ~ li:last-child:after,
+        .grid li:nth-child(2):hover ~ li:last-child:before {
+            transform: translate3d(-100%, -200%, 0);
+        }
+        .grid li:nth-child(3):hover ~ li:last-child:after,
+        .grid li:nth-child(3):hover ~ li:last-child:before {
+            transform: translate3d(0%, -200%, 0);
+        }
+        .grid li:nth-child(4):hover ~ li:last-child:after,
+        .grid li:nth-child(4):hover ~ li:last-child:before {
+            transform: translate3d(-200%, -100%, 0);
+        }
+        .grid li:nth-child(5):hover ~ li:last-child:after,
+        .grid li:nth-child(5):hover ~ li:last-child:before {
+            transform: translate3d(-100%, -100%, 0);
+        }
+        .grid li:nth-child(6):hover ~ li:last-child:after,
+        .grid li:nth-child(6):hover ~ li:last-child:before {
+            transform: translate3d(0%, -100%, 0);
+        }
+        .grid li:nth-child(7):hover ~ li:last-child:after,
+        .grid li:nth-child(7):hover ~ li:last-child:before {
+            transform: translate3d(-200%, 0%, 0);
+        }
+        .grid li:nth-child(8):hover ~ li:last-child:after,
+        .grid li:nth-child(8):hover ~ li:last-child:before {
+            transform: translate3d(-100%, 0%, 0);
+        }
+        .grid li:last-child:hover:after,
+        .grid li:last-child:hover:before {
+            transform: translate3d(0, 0, 0);
+        }
+        
+
+    </style>
+</head>
+<body>
+    <ul class="grid">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
